@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Example 19-2</title>
+    <meta name="viewport" content="width=device-width, height=device-height initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <script type="text/javascript" charset="utf-8" src="jquery-1.7.1.js"></script>
+    <script type="text/javascript" charset="utf-8" src="phonegap-1.2.0.js"></script>
+    <script type="text/javascript">
+      var watchID, lastLong, lastLat;
+
+      function onBodyLoad() {
+        //During testing, Let me know we got this far
+        alert("onBodyLoad");
+        //Add the PhoneGap deviceready event listener
+        document.addEventListener("deviceready", onDeviceReady, false);
+      }
+
+      function onDeviceReady() {
+        //During testing, Let me know PhoneGap actually
+        // initialized
+        alert("onDeviceReady");
+        //Create the watch
+        startWatch();
+      }
+
+      function startWatch() {
+        //Clear out the previous content on the page
+        $('#locationInfo').empty();
+        $('#timestampInfo').empty();
+        //Show and hide the appropriate buttons
+        $('#btnStart').hide();
+        $('#btnCancel').show();
+        //Geolocation Options
+        var locOptions = {
+          maximumAge : 10000,
+          timeout : 5000,
+          enableHighAccuracy : true
+        };
+        //get the current location
+        watchID = navigator.geolocation.watchPosition(onLocationSuccess, onLocationError, locOptions);
+      }
+
+      function onLocationSuccess(loc) {
+        //alert("onLocationSuccess");
+        //We have a new location, so get the timestamp in a date
+        // object so we can work with it
+        var d = new Date(loc.timestamp);
+        //Has anything changed since the last time?
+        if(lastLat != loc.coords.latitude || lastLong != loc.coords.longitude) {
+          //Then replace the page's content with the current
+          // location retrieved from the API
+          $('#locationInfo').html('<b>Latitude</b>: ' + loc.coords.latitude + '<br /><b>Longitude</b>: ' + loc.coords.longitude + '<br /><b>Altitude</b>: ' + loc.coords.altitude);
+          $('#timestampInfo').prepend(d.toLocaleString() + '<br />');
+          lastLat = loc.coords.latitude;
+          lastLong = loc.coords.longitude;
+        } else {
+          $('#timestampInfo').prepend('Skipping: ' + d.toLocaleTimeString() + '<br />');
+        }
+      }
+
+      function onLocationError(e) {
+        alert("Geolocation error: #" + e.code + "\n" + e.message);
+      }
+
+      function cancelWatch() {
+        //Clear the watch
+        navigator.geolocation.clearWatch(watchID);
+        //Clear the watch ID (just because)
+        watchID = null;
+        //Hide the cancel button so they can't cancel it again.
+        $('#btnCancel').hide();
+        $('#btnStart').show();
+        //Let the user know we cleared the watch
+        //alert("Watch Cancelled");
+      }
+    </script>
+  </head>
+  <body onload="onBodyLoad()">
+    <h1>Geolocation API Demo #2</h1>
+    <input type="button" value="Cancel" onclick="cancelWatch();" id="btnCancel">
+    <input type="button" value="Start" onclick="startWatch();" id="btnStart">
+    <br />
+    <b>Location</b>
+    <hr />
+    <div id="locationInfo"></div>
+    <br />
+    <b>Timestamp</b>
+    <hr />
+    <div id="timestampInfo"></div>
+  </body>
+</html>

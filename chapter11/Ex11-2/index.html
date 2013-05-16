@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Example 11-2</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" id="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+    <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      function onBodyLoad() {
+        alert("onBodyLoad");
+        document.addEventListener("deviceready", onDeviceReady, false);
+      }
+
+      function onDeviceReady() {
+        navigator.notification.alert("onDeviceReady");
+      }
+
+      function takePhoto() {
+        //alert("takePhoto");
+        navigator.camera.getPicture(onCameraSuccess, onCameraError, {
+          quality : 50,
+          destinationType : Camera.DestinationType.FILE_URI
+        });
+        // navigator.camera.getPicture(onCameraSuccess, onCameraError);
+      }
+
+      function onCameraSuccess(imageURL) {
+        navigator.notification.alert("onCameraSuccess: " + imageURL);
+        //Get a handle to the image container div
+        ic = document.getElementById('imageContainer');
+        //Then write an image tag out to the div using the
+        //URL we received from the camera application. 
+        ic.innerHTML = '<img src="' + imageURL + '" width="50%" />';
+      }
+
+      function onCameraError(e) {
+        console.log(e);
+        navigator.notification.alert("onCameraError: " + e);
+      }
+    </script>
+  </head>
+  <body onload="onBodyLoad()">
+    <h1>Example 11-2</h1>
+    <p>
+      Using the PhoneGap Camera API
+      <br />
+      <input type="button" value="Take a Picture" onclick="takePhoto();">
+      <div id="imageContainer"></div>
+    </p>
+  </body>
+</html>

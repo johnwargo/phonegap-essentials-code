@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Example 17-4</title>
+    <meta name="viewport" content="width=device-width, height=device-height initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="jquery.mobile1.0b3.min.css" />
+    <script type="text/javascript" charset="utf-8" src="jquery1.6.4.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="jquery.mobile1.0b3.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      function onBodyLoad() {
+        //alert("onBodyLoad");
+        document.addEventListener("deviceready", onDeviceReady, false);
+      }
+
+      function onDeviceReady() {
+        //Nothing to do here really
+        alert("onDeviceReady");
+      }
+
+      function doAlert() {
+        msgText = document.getElementById('msgText').value;
+        navigator.notification.alert(msgText, onDoAlert, "Sample Alert", "Click Me!");
+      }
+
+      function onDoAlert() {
+        alert("You clicked the Click Me button.");
+      }
+
+      function doConfirm() {
+        msgText = document.getElementById('msgText').value;
+        navigator.notification.confirm(msgText, onDoConfirm, "Sample Confirmation", "Yes, No, Maybe");
+      }
+
+      function onDoConfirm(btnNum) {
+        if(btnNum == "1") {
+          alert("Thanks for saying yes!");
+        } else {
+          alert("Too bad, you said no.");
+        }
+      }
+
+      function doBeep() {
+        beepCount = document.getElementById('beepSlider').value;
+        navigator.notification.beep(beepCount);
+      }
+
+      function doVibe() {
+        vibeCount = document.getElementById('vibeSlider').value;
+        navigator.notification.vibrate(vibeCount);
+      }
+    </script>
+  </head>
+  <body onload="onBodyLoad()">
+    <div data-role="header">
+      <h1>Notification Demo</h1>
+    </div>
+    <div data-role="content">
+      <div data-role="fieldcontain">
+        <label for="msgText">Message Text:</label>
+        <input type="text" name="msgText" id="msgText" value="This is a message" />
+        <div data-role="controlgroup" data-type="horizontal">
+          <input type="button" value="Alert" onclick="doAlert();">
+          <input type="button" value="Confirm" onclick="doConfirm();">
+        </div>
+      </div>
+      <div data-role="fieldcontain">
+        <label for="beepSlider" >Number of Beeps</label>
+        <input type="range" name="beepSlider" id="beepSlider" value="1" min="1" max="3" />
+        <input type="button" value="Beep" onclick="doBeep();">
+      </div>
+      <div data-role="fieldcontain">
+        <label for="vibeSlider" >Vibrate Duration</label>
+        <input type="range" name="vibeSlider" id="vibeSlider" value="100" min="100" max="1000" step="100" />
+        <input type="button" value="Vibrate" onclick="doVibe();">
+      </div>
+    </div>
+  </body>
+</html>

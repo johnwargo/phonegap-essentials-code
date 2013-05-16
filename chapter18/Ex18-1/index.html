@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Example 18-1</title>
+    <meta name="viewport" content="width=device-width, height=device-height initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="jquery.mobile-1.0.css" />
+    <script type="text/javascript" charset="utf-8" src="jquery-1.7.1.js"></script>
+    <script type="text/javascript" charset="utf-8" src="jquery.mobile-1.0.js"></script>
+    <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+    <script type="text/javascript" charset="utf-8" src="main.js"></script>
+    <script type="text/javascript" charset="utf-8" src="randomStr.js"></script>
+    <script type="text/javascript">
+      function onBodyLoad() {
+        //During testing, Let me know we got this far
+        alert("onBodyLoad");
+        //Add the PhoneGap deviceready event listener
+        document.addEventListener("deviceready", onDeviceReady, false);
+      }
+
+      function onDeviceReady() {
+        //During testing, Let me know PhoneGap actually
+        // initialized
+        alert("onDeviceReady");
+      }
+    </script>
+  </head>
+  <body onload="onBodyLoad()">
+    <section id="main" data-role="page" >
+      <header data-role="header">
+        <h1>File API Demo</h1>
+      </header>
+      <div data-role="content">
+        <p>
+          Select file system:
+          <input type="button" value="Temporary" onclick="processDir(LocalFileSystem.TEMPORARY);">
+          <input type="button" value="Persistent" onclick="processDir(LocalFileSystem.PERSISTENT);">
+        </p>
+      </div>
+    </section>
+    <section id="dirList" data-role="page" data-add-back-btn="true">
+      <header data-role="header">
+        <h1>File API Demo</h1>
+        <a onclick="writeFile();" data-icon="plus" class="ui-btn-right">Write</a>
+      </header>
+      <div data-role="content">
+        <p>
+          File system contents:
+        </p>
+        <div id="dirEntries"></div>
+        <hr />
+        <div id="writeInfo"></div>
+      </div>
+    </section>
+    <section id="fileDetails" data-role="page" data-add-back-btn="true">
+      <header data-role="header">
+        <h1>File API Demo</h1>
+      </header>
+      <div data-role="content">
+        <p>
+          <em>Directory Entry Information</em>
+        </p>
+        <hr />
+        <div id="fileInfo"></div>
+        <hr />
+        <p>
+          <em>File Metadata:</em>
+        </p>
+        <div id="fileMetadata"></div>
+        <input type="button" value="View File" onclick="viewFile();">
+        <input type="button" value="Remove File" onclick="removeFile();">
+      </div>
+    </section>
+    <section id="viewFile" data-role="page" data-add-back-btn="true">
+      <header data-role="header">
+        <h1>File API Demo</h1>
+      </header>
+      <div data-role="content">
+        <div id="viewFileName"></div>
+        <div id="fileContents"></div>
+        <hr />
+        <div id="readInfo"></div>
+      </div>
+    </section>
+  </body>
+</html>

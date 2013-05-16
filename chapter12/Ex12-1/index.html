@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Example 12-1</title>
+    <meta name="viewport" content="width=device-width, height=device-height initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="jquery.mobile1.0b3.min.css" />
+    <script type="text/javascript" charset="utf-8" src="jquery1.6.4.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="jquery.mobile1.0b3.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      var results;
+
+      function onBodyLoad() {
+        //Let the user know we got this far
+        alert("onBodyLoad");
+
+        //Add the PhoneGap deviceready event listener
+        document.addEventListener("deviceready", onDeviceReady, false);
+      }
+
+      function onDeviceReady() {
+        var tmpElement;
+
+        //Let the user know we got this far
+        alert("onDeviceReady");
+        //Get a handle to the results area of the page
+        res = document.getElementById("captureResults");
+      }
+
+      function doCapture() {
+        //Clear out any previous results
+        res.innerHTML = "Initiating capture...";
+        //Get some values from the page
+        var numItems = document.getElementById("numItems").value;
+        var capDur = document.getElementById("duration").value;
+        //Figure out which option is selected
+        var captureType = document.getElementById("captureType").selectedIndex;
+        switch(captureType) {
+          case 0:
+            //Capture Audio
+            navigator.device.capture.captureAudio(onCaptureSuccess, onCaptureError, {
+              duration : capDur,
+              limit : numItems
+            });
+            break;
+          case 1:
+            //Capture Image
+            navigator.device.capture.captureImage(onCaptureSuccess, onCaptureError, {
+              limit : numItems
+            });
+            break;
+          case 2:
+            //Capture Video
+            navigator.device.capture.captureVideo(onCaptureSuccess, onCaptureError, {
+              duration : capDur,
+              limit : numItems
+            });
+            break;
+        }
+      }
+
+      function onCaptureSuccess(fileList) {
+        var i, len, htmlStr;
+        len = fileList.length;
+        //Make sure we had a result; it should always be
+        //greater than 0, but you never know.
+        if(len > 0) {
+          htmlStr = "<p>Results:</p><ol>";
+          for( i = 0, len; i < len; i += 1) {
+            //alert(fileList[i].fullPath);
+            htmlStr += '<li><a href="file:/' + fileList[i].fullPath + '">' + fileList[i].name + '</a></li>';
+          }
+          htmlStr += "</ol>";
+          //Set the results content
+          res.innerHTML = htmlStr;
+        }
+      }
+
+      function onCaptureError(e) {
+        var msgText;
+        //Clear the results text, nothing to show
+        res.innerHTML = "";
+        //Now build a message string based upon the error returned
+        // by the API
+        switch(e.code) {
+          case CaptureError.CAPTURE_INTERNAL_ERR:
+            msgText = "Internal error, the camera or microphone failed to capture image or sound.";
+            break;
+          case CaptureError.CAPTURE_APPLICATION_BUSY:
+            msgText = "The camera application or audio capture application is currently serving other capture request.";
+            break;
+          case CaptureError.CAPTURE_INVALID_ARGUMENT:
+            msgText = "Invalid parameter passed to the API.";
+            break;
+          case CaptureError.CAPTURE_NO_MEDIA_FILES:
+            msgText = "User likely cancelled the capture process.";
+            break;
+          case CaptureError.CAPTURE_NOT_SUPPORTED:
+            msgText = "The requested operation is not supported on this device.";
+            break;
+          default:
+            //Create a generic response, just in case the
+            // following switch fails
+            msgText = "Unknown Error (" + e.code + ")";
+        }
+        //Now tell the user what happened
+        navigator.notification.alert(msgText, null, "Capture Error");
+      }
+    </script>
+  </head>
+  <body onload="onBodyLoad()">
+    <div data-role="header">
+      <h1>Capture Demo</h1>
+    </div>
+    <div data-role="content">
+      <label for="captureType">Capture Type:</label>
+      <select id="captureType" name="captureType">
+        <option value="0">Audio</option>
+        <option value="1">Image</option>
+        <option value="2">Video</option>
+      </select>
+      <label for="numItems">Number of Items</label>
+      <input type="range" name="numItems" id="numItems" value="1" min="1" max="5" />
+      <label for="duration">Duration</label>
+      <input type="range" name="duration" id="duration" value="5" min="1" max="10" />
+      <input type="button" id="captureButton" value="Capture" onclick="doCapture();">
+      <div id="captureResults"></div>
+    </div>
+  </body>
+</html>

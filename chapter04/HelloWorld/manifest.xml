@@ -1,0 +1,34 @@
+<?xml version='1.0' ?>
+<Manifest>
+    <Id>uk64lw5012</Id>
+    <Secret>C2FD81F20DDA99EF04AFF0B670F3418B</Secret>
+  <AppVersion>1.0.0</AppVersion>
+  <ManifestVersion>1.2</ManifestVersion>
+  <AppType>WebApp</AppType>
+    <Privileges>
+        <Privilege>
+            <Name>CALENDARBOOK</Name>
+        </Privilege>
+        <Privilege>
+            <Name>CAMERA</Name>
+        </Privilege>
+        <Privilege>
+            <Name>RECORDING</Name>
+        </Privilege>
+        <Privilege>
+            <Name>ADDRESSBOOK</Name>
+        </Privilege>
+        <Privilege>
+            <Name>SYSTEM_SERVICE</Name>
+        </Privilege>
+        <Privilege>
+            <Name>TELEPHONY</Name>
+        </Privilege>
+        <Privilege>
+            <Name>WEB_SERVICE</Name>
+        </Privilege>
+    </Privileges>
+    <DeviceProfile>
+        <APIVersion>2.0</APIVersion>
+    </DeviceProfile>
+</Manifest>

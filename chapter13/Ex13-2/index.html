@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<meta name="viewport" id="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+		<title>Example 13-2</title>
+		<script type="text/javascript" charset="utf-8" src="jquery.js"></script>
+		<script type="text/javascript" charset="utf-8" src="jQueryRotate.2.1.js"></script>
+		<script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			var hi, watchID;
+
+			function onBodyLoad() {
+				alert("onBodyLoad");
+				document.addEventListener("deviceready", onDeviceReady, false);
+				hi = document.getElementById('headingInfo');
+			}
+
+			function onDeviceReady() {
+				alert("onDeviceReady");
+				//Setup the watch
+				//Read the compass 4 times a second (250 milliseconds, .25 seconds)
+				var watchOptions = {
+					frequency : 250
+				};
+				watchID = navigator.compass.watchHeading(onHeadingSuccess, onHeadingError, watchOptions);
+			}
+
+			function onHeadingSuccess(heading) {
+				//alert("onHeadingSuccess");
+				var hv = Math.round(heading.magneticHeading);
+				hi.innerHTML = "<b>Heading:</b>" + hv + " degrees";
+				$("#compass").rotate(-hv);
+			}
+
+			function onHeadingError(compassError) {
+				//alert("onHeadingFailure");
+				//Remove the watch since we're having a problem
+				navigator.compass.clearWatch(watchID);
+				//Clear the heading value from the page
+				hi.innerHTML = "";
+				//Then tell the user what happened.
+				if(compassError.code == CompassError.COMPASS_NOT_SUPPORTED) {
+					alert("Compass not supported.");
+				} else if(compassError.code == CompassError.COMPASS_INTERNAL_ERR) {
+					alert("Compass Internal Error");
+				} else {
+					alert("Unknown heading error!");
+				}
+			}
+		</script>
+	</head>
+	<body onload="onBodyLoad()">
+		<h1>Example 13-2</h1>
+		<img src="compass.png" id="compass" />
+		<br />
+		<p id="headingInfo"></p>
+	</body>
+</html>

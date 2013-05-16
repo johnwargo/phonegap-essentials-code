@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Example 10-2</title>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<meta name="viewport" id="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+		<script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			// Accelerometer watcher ID
+			var awID;
+			//Orientation content
+			var ac
+
+			function onBodyLoad() {
+				alert("onBodyLoad");
+				document.addEventListener("deviceready", onDeviceReady, false);
+			}
+
+			function onDeviceReady() {
+				alert("OnDeviceReady");
+				//Get a handle we'll use to adjust the accelerometer content
+				ac = document.getElementById('accelInfo');
+				//Accelerometer Options, read accelerometer
+				//every half second (500 milliseconds)
+				var accelOptions = {
+					frequency : 500
+				};
+				//Add the accelerometer watcher
+				awID = navigator.accelerometer.watchAcceleration(onAccelSuccess, onAccelFailure, accelOptions);
+				//See what the watch ID looks like
+				navigator.alert(awID);
+			}
+
+			function onAccelSuccess(accel) {
+				//Then replace the page's content with the
+				//current acceleration retrieved from the API
+				ac.innerHTML = "<b>X:</b> " + accel.x + "<br /><b>Y:</b> " + accel.y + "<br /><b>Z:</b> " + accel.z;
+			}
+
+			function onAccelFailure() {
+				alert("Accelerometer error! Clearing Watch ID.");
+				//Cancel the watch
+				navigator.accelerometer.clearWatch(awID);
+			}
+		</script>
+	</head>
+	<body onload="onBodyLoad()">
+		<h1>Example 10-2</h1>
+		<p>
+			PhoneGap Accelerometer Watcher
+		</p>
+		<p>
+			<b>Current Orientation</b>
+			<hr />
+		</p>
+		<p id="accelInfo">
+			Waiting for PhoneGap to initialize.
+		</p>
+		<hr />
+	</body>
+</html>

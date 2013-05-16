@@ -1,0 +1,25 @@
+Buildfile: C:\Dev\PhoneGap\BlackBerry\HelloWorld\build.xml
+
+generate-cod-name:
+     [echo] Generated name: HelloWorld.cod
+
+clean:
+
+package-app:
+    [mkdir] Created dir: C:\Dev\PhoneGap\BlackBerry\HelloWorld\build\widget
+     [copy] Copying 8 files to C:\Dev\PhoneGap\BlackBerry\HelloWorld\build\widget
+      [zip] Building zip: C:\Dev\PhoneGap\BlackBerry\HelloWorld\build\HelloWorld.zip
+
+build:
+     [exec] [INFO]      		Parsing command line options
+     [exec] [INFO]      		Parsing bbwp.properties
+     [exec] [INFO]      		Validating application archive
+     [exec] [INFO]      		Parsing config.xml 
+     [exec] [WARNING]   		Failed to find the <author> element
+     [exec] [INFO]      		Populating application source
+     [exec] [INFO]      		Compiling BlackBerry WebWorks application
+     [exec] [INFO]      		Generating output files
+     [exec] [INFO]      		BlackBerry WebWorks application packaging complete
+
+BUILD SUCCESSFUL
+Total time: 9 seconds

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<title>Example 16-1</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" id="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+    <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+    <script type="text/javascript" charset="utf-8">
+	
+	var br = "<br />";
+	
+	function onBodyLoad() {		
+		document.addEventListener("deviceready", onDeviceReady, false);
+	}
+	
+	function onDeviceReady() {
+		//Get the appInfo DOM element
+		var element = document.getElementById("deviceInfo");
+		//replace it with specific information about the device running the application
+        element.innerHTML = "<b>device.name: " + device.name + br +
+		"<b>device.phonegap:</b> " + device.phonegap + br +
+		"<b>device.platform:</b> " + device.platform + br +
+		"<b>device.uuid:</b> " + device.uuid + br +
+		"<b>device.version:</b> " + device.version + br;
+	}
+    
+    </script>
+  </head>
+  <body onload="onBodyLoad()">
+    <h1>Example 16-1</h1>
+    <p id="deviceInfo">Waiting for PhoneGap Initialization to complete</p>
+  </body>
+</html>

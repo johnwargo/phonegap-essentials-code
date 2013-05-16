@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" id="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+	<link rel="stylesheet" href="jquery.mobile-1.0b3.css" />
+	<script type="text/javascript" charset="utf-8" src="jquery-1.6.4.js"></script>
+	<script type="text/javascript" charset="utf-8" src="jquery.mobile-1.0b3.js"></script>
+    <script type="text/javascript" charset="utf-8" src="phonegap.1.0.0.js"></script>
+    <script type="text/javascript" charset="utf-8">
+	function onBodyLoad() {		
+		document.addEventListener("deviceready", onDeviceReady, false);
+	}
+	function onDeviceReady() {
+		//navigator.notification.alert("PhoneGap is ready!");
+		//Get the appInfo DOM element
+		var element = document.getElementById('appInfo');
+		//replace it with specific information about the device running the application
+        element.innerHTML = 'PhoneGap (version ' + device.phonegap + ')<br />' + device.platform + ' ' + device.name + ' (version ' + device.version + ').';
+	}
+    </script>
+  </head>
+  <body onload="onBodyLoad()">
+  <div data-role="page"> 
+	<div data-role="header" data-position="fixed">
+	  <h1>HelloWorld4</h1>
+	</div> 
+	<div data-role="content">
+	  <p>This is a PhoneGap application that makes calls to the PhoneGap APIs and uses the jQuery Mobile framework.</p>
+      <p id="appInfo">Waiting for PhoneGap Initialization to complete</p>
+	</div> 
+	<div data-role="footer" data-position="fixed">
+	  <h1>PhoneGap Distilled</h1>
+	</div> 
+</div> 
+  </body>
+</html>

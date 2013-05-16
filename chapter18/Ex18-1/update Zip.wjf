@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<winzipjob version="3">
+<wizard usevars="no"/>
+<items>
+<item exclude="no" recurse="no">Z:\Source Code\PhoneGap-Book\chapter18\Ex18-1\jquery-1.7.1.js</item>
+<item exclude="no" recurse="no">Z:\Source Code\PhoneGap-Book\chapter18\Ex18-1\index.html</item>
+<item exclude="no" recurse="no">Z:\Source Code\PhoneGap-Book\chapter18\Ex18-1\config.xml</item>
+<item exclude="no" recurse="no">Z:\Source Code\PhoneGap-Book\chapter18\Ex18-1\jquery.mobile-1.0.css</item>
+<item exclude="no" recurse="no">Z:\Source Code\PhoneGap-Book\chapter18\Ex18-1\jquery.mobile-1.0.js</item>
+<item exclude="no" recurse="no">Z:\Source Code\PhoneGap-Book\chapter18\Ex18-1\randomstr.js</item>
+<item exclude="no" recurse="no">Z:\Source Code\PhoneGap-Book\chapter18\Ex18-1\main.js</item>
+<item exclude="no" recurse="yes">Z:\Source Code\PhoneGap-Book\chapter18\Ex18-1\images\</item>
+</items>
+<output>
+<name append="none">Ex18-1.zip</name>
+<folder append="none">Z:\Source Code\PhoneGap-Book\chapter18\Ex18-1\</folder>
+<log type="none"/>
+</output>
+<options>
+<flags>0001</flags>
+<compression type="max"/>
+<span mode="auto"/>
+<split unit="byte">0</split>
+<encryption mode="none" method="none"/>
+<folders mode="relative"/>
+<cd speed="default" finalize="yes"/>
+</options>
+<email>
+<mailitem options="0">
+<sendto/>
+<subject type="ok"/>
+<subject type="error"/>
+</mailitem>
+</email>
+</winzipjob>

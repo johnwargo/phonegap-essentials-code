@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Example 19-3</title>
+    <meta name="viewport" content="width=device-width, height=device-height initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="jquery.mobile-1.0.css" />
+    <script type="text/javascript" charset="utf-8" src="jquery-1.6.4.js"></script>
+    <script type="text/javascript" charset="utf-8" src="jQueryRotate.2.1.js"></script>
+    <script type="text/javascript" charset="utf-8" src="jquery.mobile-1.0.js"></script>
+    <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+    <script type="text/javascript" charset="utf-8" src="main.js"></script>
+    <script type="text/javascript">
+      function onBodyLoad() {
+        $('#btnCancel').hide();
+        //During testing, Let me know we got this far
+        alert("onBodyLoad");
+        //Add the PhoneGap deviceready event listener
+        document.addEventListener("deviceready", onDeviceReady, false);
+      }
+
+      function onDeviceReady() {
+        //During testing, Let me know PhoneGap actually
+        // initialized
+        alert("onDeviceReady");
+      }
+    </script>
+  </head>
+  <body onload="onBodyLoad()">
+    <section id="main" data-role="page">
+      <header data-role="header" data-position="fixed">
+        <h1>Get Me There (ex19-3)</h1>
+      </header>
+      <div data-role="content" class="content">
+        <p>
+          Destination:
+        </p>
+        <label for="editLong">Longitude: </label>
+        <input type="text" name="editLong" value="-81.52" />
+        <br />
+        <label for="editLat">Latitude: </label>
+        <input type="text" name="editLat" value="41.08" />
+        <input type="button" value="Cancel" id="btnCancel" name="btnCancel" onclick="cancelWatch();">
+        <input type="button" value="Start" id="btnStart" name="btnStart" onclick="startWatch();">
+        <label for="editDist">Distance</label>
+        <input type="text" name="editDist" readonly="readonly"/>
+        <br />
+        <img src="compass.png" id="compass" alt="compass image" align="middle" />
+      </div>
+      <footer data-role="footer" data-position="fixed">
+        <p>
+          &nbsp;www.phonegapessentials.com
+        </p>
+      </footer>
+    </section>
+  </body>
+</html>

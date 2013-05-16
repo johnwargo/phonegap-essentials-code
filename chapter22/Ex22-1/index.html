@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Example 22-1</title>
+    <meta name="viewport" content="width=device-width, height=device-height initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="jquery.mobile1.0b3.min.css" />
+    <script type="text/javascript" charset="utf-8" src="jquery1.6.4.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="jquery.mobile1.0b3.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="date.js"></script>
+    <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+    <script type="text/javascript" charset="utf-8" src="main.js"></script>
+    <script type="text/javascript">
+      function onBodyLoad() {
+        //During testing, Let me know we got this far
+        alert("onBodyLoad");
+        //Add the PhoneGap deviceready event listener
+        document.addEventListener("deviceready", onDeviceReady, false);
+      }
+
+      function onDeviceReady() {
+        //During testing, Let me know PhoneGap actually
+        // initialized
+        alert("onDeviceReady");
+        //initialize the database and data storage
+        init();
+      }
+    </script>
+  </head>
+  <body onload="onBodyLoad()">
+    <section id="main" data-role="page" >
+      <header data-role="header">
+        <a onclick="showViewPage();" data-icon="grid" >Views</a>
+        <h1>Mileage Tracker</h1>
+        <a onclick="showConfigPage();" data-icon="gear" >Config</a>
+      </header>
+      <div data-role="content">
+        <label for="editDate">Date:</label>
+        <input type="date" name="editDate" id="editDate" value="" />
+        <br />
+        <label for="editNumMiles">Number of miles:</label>
+        <input type="number" name="editNumMiles" id="editNumMiles" min="1" value="" />
+        <br />
+        <label for="editNotes">Notes:</label>
+        <textarea cols="40" rows="8" name="editNotes" id="editNotes"></textarea>
+        <br />
+        <input type="button" value="Save" onclick="saveRecord();">
+      </div>
+    </section>
+    <section id="viewList" data-role="page" data-add-back-btn="true">
+      <header data-role="header">
+        <h1>MT Views</h1>
+      </header>
+      <div data-role="content">
+        <ul data-role="listview">
+          <li>
+            <a href="#" onclick="openView(1);">Today</a>
+          </li>
+          <li>
+            <a href="#" onclick="openView(2);">Last 7 days</a>
+          </li>
+          <li>
+            <a href="#" onclick="openView(3);">All by Date</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <section id="dataView" data-role="page" data-add-back-btn="true">
+      <header data-role="header">
+        <h1>MT Mileage View</h1>
+      </header>
+      <div data-role="content">
+        <h1 id="viewTitle"></h1>
+        <hr />
+        <div id="viewData"></div>
+      </div>
+    </section>
+    <section id="config" data-role="page" >
+      <header data-role="header">
+        <h1>MT Config</h1>
+      </header>
+      <div data-role="content">
+        <div data-role="fieldcontain">
+          <legend>
+            Daily purge of old records?
+          </legend>
+          <label for="purgeStatus">Purge enabled</label>
+          <input type="checkbox" name="purgeStatus" id="purgeStatus" />
+          <label for="purgeInterval">Purge Interval</label>
+          <input type="number" id="purgeInterval" name="purgeInterval" />
+          days
+        </div>
+        <input type="button" value="Save Config" onclick="saveConfig();">
+      </div>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Application>
+    <Entry>HelloWorld</Entry>
+    <Name>
+        <English>HelloWorld</English>
+        <eng-GB>HelloWorld</eng-GB>
+    </Name>
+    <Vendor>PhoneGap Distilled</Vendor>
+    <Description>Sample HelloWorld PhoneGap Application</Description>
+    <Icons>
+        <MainMenu>PhoneGap.png<Type1/>
+            <Type2/>
+            <Type3>PhoneGap.png</Type3>
+            <Type4/>
+        </MainMenu>
+        <Setting/>
+        <Ticker/>
+        <QuickPanel/>
+        <LaunchImage>Splash.png<Type1/>
+            <Type2/>
+            <Type3>Splash.png</Type3>
+            <Type4/>
+        </LaunchImage>
+    </Icons>
+    <AutoScaling>
+        <Enabled>false</Enabled>
+    </AutoScaling>
+</Application>

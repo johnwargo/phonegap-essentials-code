@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Example 14-1</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" id="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+    <script type="text/javascript" charset="utf-8" src="jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      //build an accessible representation of the different network state values
+      var states = {};
+      states[Connection.UNKNOWN] = 'Unknown';
+      states[Connection.ETHERNET] = 'Ethernet';
+      states[Connection.WIFI] = 'Wi-Fi';
+      states[Connection.CELL_2G] = 'Cell 2G';
+      states[Connection.CELL_3G] = 'Cell 3G';
+      states[Connection.CELL_4G] = 'Cell 4G';
+      states[Connection.NONE] = 'No network';
+
+      function onBodyLoad() {
+        document.addEventListener("deviceready", onDeviceReady, false);
+      }
+
+      function onDeviceReady() {
+        navigator.notification.alert("PhoneGap is ready!");
+        //Add the online event listener
+        document.addEventListener("online", isOnline, false);
+        //Add the offline event listener
+        document.addEventListener("offline", isOffline, false);
+      }
+
+      function isOnline() {
+        //alert("isOnline");
+        var d = new Date();
+        $('#networkInfo').prepend("Online (" + getConnectionTypeStr() + ")<br />");
+      }
+
+      function isOffline() {
+        //alert("isOffline");
+        var d = new Date();
+        $('#networkInfo').prepend("Offline<br />");
+      }
+
+      function getConnectionTypeStr() {
+        //get the network state
+        var networkState = navigator.network.connection.type;
+        //return a string representing the current network state
+        return states[networkState];
+      }
+    </script>
+  </head>
+  <body onload="onBodyLoad()">
+    <h1>Example 14-1</h1>
+    <p id="networkInfo"></p>
+  </body>
+  </body>
+</html>

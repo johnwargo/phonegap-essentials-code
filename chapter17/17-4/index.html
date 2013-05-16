@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Example 17-4</title>
+    <meta name="viewport" content="width=device-width, height=device-height initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <script type="text/javascript" charset="utf-8" src="jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      function onBodyLoad() {
+        //alert("onBodyLoad");
+        document.addEventListener("deviceready", onDeviceReady, false);
+      }
+
+      function onDeviceReady() {
+        alert("onDeviceReady");
+
+        //Check to see if we've registered any events
+        var eventCount = 0;
+
+        //What platform are we running on?
+        pName = device.platform;
+
+        if((pName == "Android") || (pName == "3.0.0.100")) {
+          eventCount += 2;
+          //Android & BlackBerry only events
+          document.addEventListener("backbutton", onBackButton, false);
+          document.addEventListener("menubutton", onMenuButton, false);
+        }
+
+        if(pName == "Android") {
+          eventCount += 1;
+          //Android only event
+          document.addEventListener("searchbutton", onSearchButton, false);
+        }
+
+        if(pName == "3.0.0.100") {
+          eventCount += 4;
+          //BlackBerry only events
+          document.addEventListener("startcallbutton", onStartCallButton, false);
+          document.addEventListener("endcallbutton", onEndCallButton, false);
+          document.addEventListener("volumedownbutton", onVolumeUpButton, false);
+          document.addEventListener("volumeupbutton", onVolumeDownButton, false);
+        }
+
+        //did we register any event listeners?
+        if(eventCount < 1) {
+          //0, must be running on an iOS device
+          alert("Must be running on an iOS device.\nNo event listeners registered");
+        } else {
+          //Android or BlackBerry
+          alert("Registered " + eventCount + " event listeners.");
+        }
+      }
+
+      function onBackButton() {
+        $('#buttonInfo').prepend("Back button pressed<br />");
+        //Do button processing here
+        navigator.app.exitApp();
+      };
+
+      function onMenuButton() {
+        $('#buttonInfo').prepend("Menu button pressed<br />");
+        //Do button processing here
+      };
+
+      function onSearchButton() {
+        $('#buttonInfo').prepend("Search button pressed<br />");
+        //Do button processing here
+      };
+
+      function onStartCallButton() {
+        $('#buttonInfo').prepend("Start Call button pressed<br />");
+        //Do button processing here
+      };
+
+      function onEndCallButton() {
+        $('#buttonInfo').prepend("end Call button pressed<br />");
+        //Do button processing here
+      };
+
+      function onVolumeUpButton() {
+        $('#buttonInfo').prepend("Volume Up button pressed<br />");
+        //Do button processing here
+      };
+
+      function onVolumeDownButton() {
+        $('#buttonInfo').prepend("Volume Down button pressed<br />");
+        //Do button processing here
+      };
+    </script>
+  </head>
+  <body onload="onBodyLoad()">
+    <h1>Button Tracker</h1>
+    <p id="buttonInfo">Waiting for button press</p>
+  </body>
+</html>

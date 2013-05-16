@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Example 17-2</title>
+		<meta name="viewport" content="width=device-width, height=device-height initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			//Start time variable
+			var startTime, endTime;
+			//PauseInfo variable
+			var pi;
+			//FirstTime variable
+			var firstTime;
+
+			function onBodyLoad() {
+				//alert("onBodyLoad");
+				document.addEventListener("deviceready", onDeviceReady, false);
+			}
+
+			function onDeviceReady() {
+				alert("onDeviceReady");
+				pName = device.platform;
+				if((pName == "Android") || (pName == "3.0.0.100")) {
+					firstTime = true;
+				} else {
+					firstTime = false;
+				}
+				//Add our Pause event listener
+				document.addEventListener("pause", processPause, false);
+				//Add our Resume event listener
+				document.addEventListener("resume", processResume, false);
+				//Get a handle to the pauseInfo page element
+				pi = document.getElementById("pauseInfo");
+			}
+
+			function processPause() {
+				//alert("pause");
+				//Clear the previous counter
+				pi.innerHTML = "Application paused.";
+				//Set startTime to the current date/time
+				startTime = new Date();
+			}
+
+			function processResume() {
+				//alert("resume");
+				//We want to skip the first time this fires
+				if(firstTime == true) {
+					//Clear our firstTime variable
+					firstTime = false;
+					pi.innerHTML = "Skipping first Resume.";
+				} else {
+					//Get the current date
+					endTime = new Date();
+					timeDiff = (endTime - startTime) / 1000;
+					//Update the screen
+					pi.innerHTML = "Paused for " + timeDiff + " seconds.";
+				}
+			}
+		</script>
+	</head>
+	<body onload="onBodyLoad()">
+		<h1>Pause Counter</h1>
+		<p id="pauseInfo">
+			Waiting for pause
+		</p>
+	</body>
+</html>
